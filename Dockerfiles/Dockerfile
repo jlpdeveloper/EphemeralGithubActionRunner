@@ -6,8 +6,8 @@ ENV gh_runner_url https://github.com/actions/runner/releases/download/v2.317.0/a
 
 WORKDIR /home/runner
 
-ARG DEBIAN_FRONTEND=noninteractive
-ARG DEBCONF_NONINTERACTIVE_SEEN=true
+# ARG DEBIAN_FRONTEND=noninteractive
+# ARG DEBCONF_NONINTERACTIVE_SEEN=true
 # ARG NODE_JS_VERSION=16
 
 RUN apk add --no-cache \
@@ -67,9 +67,9 @@ RUN apk add --no-cache \
 
 FROM base as runner-base
 
-ARG RUNNER_VERSION=2.295.0
-ARG DEBIAN_FRONTEND=noninteractive
-ARG DEBCONF_NONINTERACTIVE_SEEN=true
+# ARG RUNNER_VERSION=2.295.0
+# ARG DEBIAN_FRONTEND=noninteractive
+# ARG DEBCONF_NONINTERACTIVE_SEEN=true
 
 RUN curl -o actions-runner.tar.gz -sL ${gh_runner_url} \
     && adduser -h /home/runner -H -D runner \
@@ -85,11 +85,11 @@ RUN curl -o actions-runner.tar.gz -sL ${gh_runner_url} \
 
 #COPY health-check /usr/bin/
 COPY start.sh .
-COPY hello.world.sh .
+#COPY hello.world.sh .
 
 USER runner
 
 #VOLUME ["/opt/hostedtoolcache"]
 
-#ENTRYPOINT ["/home/runner/start.sh"]
-ENTRYPOINT [ "hello.world.sh" ]
+ENTRYPOINT ["/home/runner/start.sh"]
+#ENTRYPOINT [ "/home/runner/hello.world.sh" ]

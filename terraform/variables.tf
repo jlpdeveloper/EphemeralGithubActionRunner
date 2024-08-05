@@ -11,4 +11,11 @@ variable "vpc_id" {
 variable "ingress_cidrs" {
   type        = list(string)
   description = "a list of extra cidrs that will be added to security group ingress"
+  default     = []
+}
+
+variable "region" {
+  type = string
+  default = "us-east-1"
+  description = "the region the vpc resides in"
 }

@@ -69,12 +69,6 @@ resource "aws_iam_role_policy" "task_execution" {
   policy = data.aws_iam_policy_document.task_execution_permissions.json
 }
 
-resource "aws_iam_role_policy" "read_task_container_secrets" {
-  name   = "gha-read-task-container-secrets"
-  role   = aws_iam_role.execution.id
-  policy = data.aws_iam_policy_document.task_container_secrets.json
-}
-
 resource "aws_iam_role" "task" {
   name               = "gha-task-role"
   assume_role_policy = data.aws_iam_policy_document.task_assume.json

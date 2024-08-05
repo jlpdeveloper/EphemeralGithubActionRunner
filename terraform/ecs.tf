@@ -23,7 +23,7 @@ resource "aws_security_group" "orchestrator_sg" {
     from_port   = -1
     to_port     = -1
     protocol    = -1
-    cidr_blocks = concat(var.ingress_cidrs, data.aws_vpc.vpc.cidr_block)
+    cidr_blocks = length(var.ingress_cidrs) > 0 ? setunion(var.ingress_cidrs, data.aws_vpc.vpc.cidr_block) : data.aws_vpc.vpc.cidr_block
   }
   egress {
     from_port   = -1

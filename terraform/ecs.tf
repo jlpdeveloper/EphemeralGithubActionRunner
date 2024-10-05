@@ -23,7 +23,8 @@ resource "aws_security_group" "orchestrator_sg" {
     from_port   = -1
     to_port     = -1
     protocol    = -1
-    cidr_blocks = length(var.ingress_cidrs) > 0 ? setunion(var.ingress_cidrs, data.aws_vpc.vpc.cidr_block) : data.aws_vpc.vpc.cidr_block
+    # https://stackoverflow.com/questions/67902785/adding-extra-element-to-a-list-in-terraform-if-condition-is-met
+    cidr_blocks = flatten([[data.aws_vpc.vpc.cidr_block], length(var.ingress_cidrs) > 0 ? var.ingress_cidrs : []]) 
   }
   egress {
     from_port   = -1
@@ -52,7 +53,10 @@ resource "aws_ecs_task_definition" "task_def" {
           containerPort = 80
           hostPort      = 80
         }
-      ]
+      ],
+      environment = {
+        
+      }
     }
   ])
 }

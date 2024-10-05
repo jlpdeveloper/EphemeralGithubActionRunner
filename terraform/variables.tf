@@ -9,7 +9,7 @@ variable "vpc_id" {
 }
 
 variable "ingress_cidrs" {
-  type        = list(string)
+  type        = set(string)
   description = "a list of extra cidrs that will be added to security group ingress"
   default     = []
 }

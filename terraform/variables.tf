@@ -19,3 +19,14 @@ variable "region" {
   default = "us-east-1"
   description = "the region the vpc resides in"
 }
+
+variable "environment_variables" {
+  type = object({
+    GITHUB_PERSONAL_TOKEN = string,
+    GITHUB_REPOSITORY = optional(string),
+    GITHUB_ORG = string,
+    DESTINATION = string,
+    RUNNER_GROUP = string,
+    RUNNER_LABELS = set(string)
+  })
+}

@@ -54,9 +54,7 @@ resource "aws_ecs_task_definition" "task_def" {
           hostPort      = 80
         }
       ],
-      environment = {
-        
-      }
+      environment = var.environment_variables
     }
   ])
 }
